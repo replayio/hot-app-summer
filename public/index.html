@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hot App Summer × Replay QA — Bug Leaderboard</title>
+  <style>
+    :root {
+      --brand:      #f02d5e;
+      --primary:    #171717;
+      --bg:         #fafafa;
+      --surface:    #ffffff;
+      --border:     #e5e5e5;
+      --text:       #0a0a0a;
+      --muted:      #737373;
+      --scanning:   #3b82f6;
+      --complete:   #10b981;
+      --complete-bg:#ecfdf5;
+      --error:      #c93545;
+      --error-bg:   #fdf4f3;
+      --radius:     8px;
+      --radius-lg:  12px;
+      --radius-pill:9999px;
+      --shadow-card:0 1px 2px rgba(0,0,0,0.04);
+      --shadow-hover:0 4px 12px rgba(0,0,0,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, "Inter Variable", "SF Pro Display", -apple-system, system-ui, "Segoe UI", Roboto, sans-serif;
+      font-size: 16px;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--primary);
+      border-bottom: 1px solid #262626;
+      padding: 1.5rem 1.5rem 1.25rem;
+      text-align: center;
+    }
+    .header::before { display: none; }
+    .header-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.625rem;
+      margin-bottom: 0.375rem;
+    }
+    .header-logo .flame { font-size: 1.5rem; }
+    .header h1 {
+      font-size: clamp(1.1rem, 3vw, 1.375rem);
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #fafafa;
+    }
+    .header h1 span { color: var(--brand); }
+    .header-sub {
+      font-size: 0.8125rem;
+      color: #a3a3a3;
+      margin-top: 0.25rem;
+    }
+    .header-sub a { color: var(--brand); text-decoration: none; }
+    .header-sub a:hover { text-decoration: underline; }
+
+    /* ── Stats bar ── */
+    .stats-bar {
+      display: flex;
+      gap: 0;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.125rem;
+      padding: 1rem 1.5rem;
+    }
+    .stat-value {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+    .stat-label {
+      font-size: 0.6875rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .stat-divider {
+      width: 1px;
+      background: var(--border);
+      align-self: stretch;
+    }
+
+    /* ── Controls ── */
+    .controls {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      align-items: center;
+      padding: 0.75rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      box-shadow: 0 1px 0 var(--border);
+    }
+
+    .search-wrap {
+      position: relative;
+      flex: 1;
+      min-width: 200px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.875rem;
+      pointer-events: none;
+    }
+    .search-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.875rem;
+      padding: 0.5625rem 0.75rem 0.5625rem 2.25rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .search-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(23,23,23,0.08); }
+    .search-input::placeholder { color: var(--muted); }
+
+    .sort-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .sort-btns { display: flex; gap: 0.375rem; }
+    .sort-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      padding: 0.375rem 0.875rem;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .sort-btn:hover { border-color: var(--primary); color: var(--text); }
+    .sort-btn.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      color: #fafafa;
+    }
+
+    /* ── App list ── */
+    .app-list {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1rem 1.25rem;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 0.75rem 1rem;
+      align-items: start;
+      transition: box-shadow 0.15s, border-color 0.15s;
+      box-shadow: var(--shadow-card);
+      text-decoration: none;
+      color: inherit;
+      cursor: default;
+    }
+    .app-card:hover { box-shadow: var(--shadow-hover); border-color: #d4d4d4; }
+    .app-card.has-link { cursor: pointer; }
+    .app-card.has-link:hover { border-color: var(--primary); }
+
+    .app-emoji {
+      font-size: 1.75rem;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .app-body { min-width: 0; }
+    .app-name {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .app-name a {
+      color: inherit;
+      text-decoration: none;
+    }
+    .app-name a:hover { color: var(--brand); }
+
+    .app-meta {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.125rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .app-meta .by { color: var(--brand); font-weight: 500; }
+    .app-meta .dot { opacity: 0.4; }
+
+    .app-pitch {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 0.375rem;
+      line-height: 1.5;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    /* Right column */
+    .app-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.5rem;
+      min-width: 80px;
+    }
+
+    .bug-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: rgba(240,45,94,0.06);
+      border: 1px solid rgba(240,45,94,0.2);
+      border-radius: var(--radius);
+      padding: 0.375rem 0.625rem;
+      min-width: 60px;
+    }
+    .bug-count {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--brand);
+      line-height: 1;
+    }
+    .bug-label {
+      font-size: 0.625rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .bug-badge.zero .bug-count { color: var(--muted); }
+    .bug-badge.zero { background: var(--bg); border-color: var(--border); }
+
+    .status-pill {
+      font-size: 0.6875rem;
+      font-weight: 500;
+      border-radius: var(--radius-pill);
+      padding: 0.1875rem 0.625rem;
+    }
+    .status-scanning {
+      background: #eff6ff;
+      color: #2563eb;
+      animation: pulse 2s infinite;
+    }
+    .status-complete {
+      background: var(--complete-bg);
+      color: #059669;
+    }
+    .status-error {
+      background: var(--error-bg);
+      color: var(--error);
+    }
+    .status-pending {
+      background: var(--bg);
+      color: var(--muted);
+      border: 1px solid var(--border);
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.6; }
+    }
+
+    .replay-link {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 0.1875rem 0.625rem;
+      transition: all 0.15s;
+      white-space: nowrap;
+      font-weight: 500;
+    }
+    .replay-link:hover { border-color: var(--primary); color: var(--text); background: var(--bg); }
+
+    /* Bug breakdown row */
+    .bug-breakdown {
+      grid-column: 2;
+      display: flex;
+      gap: 1rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: -0.25rem;
+    }
+    .breakdown-item span { color: var(--text); font-weight: 600; }
+
+    /* Empty / loading states */
+    .empty {
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--muted);
+    }
+    .empty .emoji { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .empty p { font-size: 0.875rem; }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    .footer a { color: var(--brand); text-decoration: none; font-weight: 500; }
+    .footer a:hover { text-decoration: underline; }
+  </style>
+<script>window.LEADERBOARD_DATA={"apps": [{"showcase_id": 17, "name": "Office Pool Generator", "handle": "AshAmplifies", "pitch": "Generates custom office pools for your office colleagues to compete in", "emoji": "\u26bd\ufe0f", "link": "https://office-pool-world-cup.netlify.app/", "replay_project_id": "proj--has-office-pool-generator-ashamplifies-mq6nv46z", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-office-pool-generator-ashamplifies-mq6nv46z/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:50.872Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 6, "journey": 1, "polish": 5, "open": 3, "resolved": 0, "rejected": 3}}, {"showcase_id": 14, "name": "Meet My AI Agent", "handle": "Zeng", "pitch": "If your AI agent had a face, this is where you would design it.", "emoji": "\ud83e\udd16", "link": "https://meetmyaiagent.netlify.app/", "replay_project_id": "proj--has-meet-my-ai-agent-zeng-mq6nv9l0", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-meet-my-ai-agent-zeng-mq6nv9l0/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:57.857Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 5, "journey": 1, "polish": 4, "open": 5, "resolved": 0, "rejected": 0}}, {"showcase_id": 21, "name": "Soundscape to Color", "handle": "Zeng", "pitch": "Turn your voice, music, or any sound into stunning real-time abstract art.", "emoji": "\ud83c\udfb6", "link": "https://soundscapetocolor.netlify.app/", "replay_project_id": "proj--has-soundscape-to-color-zeng-mq6nuwgo", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-soundscape-to-color-zeng-mq6nuwgo/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:40.853Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 5, "journey": 2, "polish": 3, "open": 5, "resolved": 0, "rejected": 0}}, {"showcase_id": 36, "name": "Inner Boardroom", "handle": "Sri Monishan", "pitch": "Before you decide, call a meeting. Watch your AI board of directors debate your future.", "emoji": "\ud83c\udfdb\ufe0f", "link": "https://monishan-inner-boardroom.lovable.app/", "replay_project_id": "proj--has-inner-boardroom-sri-monishan-mq6nu4p8", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-inner-boardroom-sri-monishan-mq6nu4p8/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:10.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 4, "journey": 1, "polish": 3, "open": 4, "resolved": 0, "rejected": 0}}, {"showcase_id": 25, "name": "OpenCircuit", "handle": "Joyston Monteiro", "pitch": "Learn electricity by building real circuits in your browser.", "emoji": "\u26a1", "link": "https://opencircuitai.netlify.app/", "replay_project_id": "proj--has-opencircuit-joyston-monteiro-mq6nupkw", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-opencircuit-joyston-monteiro-mq6nupkw/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:32.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 4, "journey": 1, "polish": 3, "open": 4, "resolved": 0, "rejected": 0}}, {"showcase_id": 38, "name": "StarThread", "handle": "Kush Sharma", "pitch": "Guess a number, place a star. Keep guessing until the sky tells your story.", "emoji": "\ud83c\udf1f", "link": "https://jade-lebkuchen-4c0825.netlify.app/", "replay_project_id": "proj--has-starthread-kush-sharma-mq6nu1lq", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-starthread-kush-sharma-mq6nu1lq/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:06.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 4, "journey": 1, "polish": 3, "open": 4, "resolved": 0, "rejected": 0}}, {"showcase_id": 20, "name": "SunCycle", "handle": "Neal Frazier", "pitch": "Circadian Light Planner to put yourself back in rhythm.", "emoji": "\u2600\ufe0f", "link": "https://suncycle-day3.netlify.app/", "replay_project_id": "proj--has-suncycle-neal-frazier-mq6nuys8", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-suncycle-neal-frazier-mq6nuys8/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:43.861Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 4, "journey": 1, "polish": 3, "open": 4, "resolved": 0, "rejected": 0}}, {"showcase_id": 37, "name": "Calcone", "handle": "Joyston Monteiro", "pitch": "A sleek, fast calculator that makes everyday math effortless and instant.", "emoji": "\ud83e\uddee", "link": "https://calcone.netlify.app/", "replay_project_id": "proj--has-calcone-joyston-monteiro-mq6nu350", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-calcone-joyston-monteiro-mq6nu350/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:08.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 1, "polish": 2, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 59, "name": "Decision Universe", "handle": "Sri Monishan", "pitch": "Travel through AI-generated alternate futures.", "emoji": "\ud83c\udf0c", "link": "https://decision-universe-monishan.lovable.app/", "replay_project_id": "proj--has-decision-universe-sri-monishan-mq6nsvy1", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-decision-universe-sri-monishan-mq6nsvy1/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:11.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 1, "polish": 2, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 67, "name": "Future Headlines", "handle": "Sri Monishan", "pitch": "AI creates a personalized newspaper from your future.", "emoji": "\ud83d\udcf0", "link": "https://future-headlines.lovable.app/", "replay_project_id": "proj--has-future-headlines-sri-monishan-mq6nsfqj", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-future-headlines-sri-monishan-mq6nsfqj/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:45.865Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 0, "polish": 3, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 32, "name": "GoodnightTales", "handle": "swatantra", "pitch": "Tell your kid a new personalized story every night.", "emoji": "\ud83d\ude34", "link": "https://goodnighttales.netlify.app/", "replay_project_id": "proj--has-goodnighttales-swatantra-mq6nud67", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-goodnighttales-swatantra-mq6nud67/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:18.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 0, "polish": 3, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 31, "name": "HabitCal", "handle": "AshAmplifies", "pitch": "Creates printable habit calendars for you and the family.", "emoji": "\ud83d\uddd3\ufe0f", "link": "https://habitcalendargenerator.netlify.app/", "replay_project_id": "proj--has-habitcal-ashamplifies-mq6nuepp", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-habitcal-ashamplifies-mq6nuepp/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:20.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 1, "polish": 2, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 23, "name": "HireMind AI", "handle": "Sri Monishan", "pitch": "The AI interview coach that turns practice into job offers.", "emoji": "\ud83e\udde0", "link": "https://monishan-hiremind-ai.netlify.app/", "replay_project_id": "proj--has-hiremind-ai-sri-monishan-mq6nutdm", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-hiremind-ai-sri-monishan-mq6nutdm/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:36.856Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 1, "polish": 2, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 58, "name": "Life RPG", "handle": "Sri Monishan", "pitch": "Turn your real-life goals into an AI-powered fantasy RPG.", "emoji": "\u2694\ufe0f", "link": "https://life-rpg-monishan.lovable.app/", "replay_project_id": "proj--has-life-rpg-sri-monishan-mq6nsy8w", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-life-rpg-sri-monishan-mq6nsy8w/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:13.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 0, "polish": 3, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 51, "name": "MovieNight", "handle": "Kush Sharma", "pitch": "Decide what you wanna watch.", "emoji": "\ud83c\udfa5", "link": "https://genuine-naiad-40523b.netlify.app/", "replay_project_id": "proj--has-movienight-kush-sharma-mq6ntc4r", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-movienight-kush-sharma-mq6ntc4r/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:27.850Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 0, "polish": 3, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 34, "name": "Nomadic Coder", "handle": "Neal Frazier", "pitch": "Coding off grid? Yes please!", "emoji": "\ud83c\udfd5\ufe0f", "link": "https://nomadic-coder.nealfrazier.tech/", "replay_project_id": "proj--has-nomadic-coder-neal-frazier-mq6nu9bo", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-nomadic-coder-neal-frazier-mq6nu9bo/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:14.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 0, "polish": 3, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 64, "name": "September Island", "handle": "Joyston Monteiro", "pitch": "Escape to a cozy AI-powered autumn island filled with magical scenes.", "emoji": "\ud83c\udf42", "link": "https://septemberisland.netlify.app/", "replay_project_id": "proj--has-september-island-joyston-monteiro-mq6nsmop", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-september-island-joyston-monteiro-mq6nsmop/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:54.874Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 1, "polish": 2, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 39, "name": "Serenity Surge", "handle": "Zeng", "pitch": "A beautiful, no-signup contraction timer built to bring calm and clarity during labor.", "emoji": "\ud83e\udd30", "link": "https://serenity-surge.netlify.app/", "replay_project_id": "proj--has-serenity-surge-zeng-mq6nu02v", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-serenity-surge-zeng-mq6nu02v/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:04.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 0, "polish": 3, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 53, "name": "Wrap AI", "handle": "Zeeshan Ali", "pitch": "Minimal AI chat app for daily conversations, quick questions", "emoji": "\u26a1", "link": "https://usewrap.chat/", "replay_project_id": "proj--has-wrap-ai-zeeshan-ali-mq6nt921", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-wrap-ai-zeeshan-ali-mq6nt921/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:23.864Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 3, "journey": 1, "polish": 2, "open": 3, "resolved": 0, "rejected": 0}}, {"showcase_id": 26, "name": "CVDoctor AI", "handle": "Sri Monishan", "pitch": "Upload your resume and get brutally honest AI feedback, ATS insights, hidden weaknesses.", "emoji": "\ud83e\ude7a", "link": "https://cvdoctor-ai.netlify.app/", "replay_project_id": "proj--has-cvdoctor-ai-sri-monishan-mq6nunz8", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-cvdoctor-ai-sri-monishan-mq6nunz8/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:30.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 35, "name": "Color Harmony", "handle": "Joyston Monteiro", "pitch": "Discover, explore, and save beautiful color palettes for your next creative project.", "emoji": "\ud83c\udfa8", "link": "https://colorharmonyagent.netlify.app/", "replay_project_id": "proj--has-color-harmony-joyston-monteiro-mq6nu6zz", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-color-harmony-joyston-monteiro-mq6nu6zz/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:12.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 1, "polish": 1, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 29, "name": "Creator Engine", "handle": "abdellah ait bouohou", "pitch": "solves this headache of making headline", "emoji": "\ud83e\udd1f", "link": "https://creatorengine.netlify.app/", "replay_project_id": "proj--has-creator-engine-abdellah-ait-bouohou-mq6nuht2", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-creator-engine-abdellah-ait-bouohou-mq6nuht2/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:24.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 63, "name": "Dice Game", "handle": "Jose Luiz Rodrigues", "pitch": "A dice game with RPG dices.", "emoji": "\ud83c\udfb2", "link": "https://dice-games-ai.netlify.app/", "replay_project_id": "proj--has-dice-game-jose-luiz-rodrigues-mq6nsp0v", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-dice-game-jose-luiz-rodrigues-mq6nsp0v/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:57.902Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 66, "name": "Font Pairing Studio", "handle": "Joyston Monteiro", "pitch": "Discover beautiful font combinations and generate production-ready typography styles in seconds.", "emoji": "\ud83d\udd24", "link": "https://font-pairing-studio.netlify.app/", "replay_project_id": "proj--has-font-pairing-studio-joyston-monteiro-mq6nsi1o", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-font-pairing-studio-joyston-monteiro-mq6nsi1o/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:48.858Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 61, "name": "Little Lantern", "handle": "Zeng", "pitch": "A gentle, Christian faith-filled companion that helps children turn their worries into peace.", "emoji": "\ud83c\udfee", "link": "https://little-lantern.netlify.app/", "replay_project_id": "proj--has-little-lantern-zeng-mq6nss2o", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-little-lantern-zeng-mq6nss2o/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:01.854Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 65, "name": "Masterplots", "handle": "AshAmplifies", "pitch": "Summary of the 8 core stories we tell as humans", "emoji": "\ud83d\udcd6", "link": "https://masterplots.netlify.app/", "replay_project_id": "proj--has-masterplots-ashamplifies-mq6nskd7", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-masterplots-ashamplifies-mq6nskd7/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:51.866Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 43, "name": "Meeting Cost Ticker", "handle": "Gerrit", "pitch": "Real-time payroll combustion because this could have been a Slack thread...", "emoji": "\ud83e\udd11", "link": "https://meeting-cost-ticker.netlify.app/", "replay_project_id": "proj--has-meeting-cost-ticker-gerrit-mq6ntrkh", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-meeting-cost-ticker-gerrit-mq6ntrkh/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:56.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 33, "name": "Midnight Sprint", "handle": "Hannah Siegertsz", "pitch": "Idea to Build in minutes", "emoji": "\ud83d\udc69\u200d\ud83d\udcbb", "link": "https://midnightsprint.sheshipssaas.com/", "replay_project_id": "proj--has-midnight-sprint-hannah-siegertsz-mq6nuav7", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-midnight-sprint-hannah-siegertsz-mq6nuav7/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:16.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 68, "name": "Out of Office Generator", "handle": "Gerrit", "pitch": "Pick your dates, set the vibe slider, and walk away with a vacation auto-reply worth screenshotting.", "emoji": "\u26f1\ufe0f", "link": "https://ooogen.netlify.app/", "replay_project_id": "proj--has-out-of-office-generator-gerrit-mq6nsdf3", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-out-of-office-generator-gerrit-mq6nsdf3/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:42.981Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 27, "name": "PathForge AI", "handle": "Sri Monishan", "pitch": "Forge a personalized roadmap from where you are today to the career you want tomorrow.", "emoji": "\ud83d\udee4\ufe0f", "link": "https://pathforge-ai.netlify.app/", "replay_project_id": "proj--has-pathforge-ai-sri-monishan-mq6nulp6", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-pathforge-ai-sri-monishan-mq6nulp6/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:28.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 55, "name": "Pizza Planet Delivery", "handle": "AshAmplifies", "pitch": "Deliver pizza like it's the 90s with this Crazy Taxi x Toy Story mashup", "emoji": "\ud83c\udf55", "link": "https://pizza-planet-delivery.netlify.app/", "replay_project_id": "proj--has-pizza-planet-delivery-ashamplifies-mq6nt4f8", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-pizza-planet-delivery-ashamplifies-mq6nt4f8/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:19.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 1, "polish": 1, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 49, "name": "README ROASTER", "handle": "Gerrit", "pitch": "Paste a public GitHub repo URL and get a brutal-but-helpful AI critique of its README.", "emoji": "\ud83c\udf36\ufe0f", "link": "https://readme-roaster.netlify.app/", "replay_project_id": "proj--has-readme-roaster-gerrit-mq6ntgs1", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-readme-roaster-gerrit-mq6ntgs1/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:33.871Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 50, "name": "StoryMap.ai", "handle": "Joyston Monteiro", "pitch": "Explore hidden stories through AI-powered maps.", "emoji": "\ud83d\uddfa\ufe0f", "link": "https://storymapai.netlify.app/", "replay_project_id": "proj--has-storymap-ai-joyston-monteiro-mq6ntego", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-storymap-ai-joyston-monteiro-mq6ntego/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:30.871Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 1, "polish": 1, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 24, "name": "build-buddy", "handle": "Maya A", "pitch": "A focus timer with a buddy who gets sleepier as you grind.", "emoji": "\ud83e\udee7", "link": "https://build-buddy-hotappsummer.netlify.app/", "replay_project_id": "proj--has-build-buddy-maya-a-mq6nuru4", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-build-buddy-maya-a-mq6nuru4/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:34.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 70, "name": "lilSchema", "handle": "David V. Kimball", "pitch": "JSON-LD Structured Data Generator", "emoji": "\ud83e\uddd1\u200d\ud83d\udcbb", "link": "https://lilschema.netlify.app/", "replay_project_id": "proj--has-lilschema-david-v-kimball-mq6ns6h5", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilschema-david-v-kimball-mq6ns6h5/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:34.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 71, "name": "lilUTM", "handle": "David V. Kimball", "pitch": "Campaign URL Builder", "emoji": "\ud83d\udd17", "link": "https://lilutm.netlify.app/", "replay_project_id": "proj--has-lilutm-david-v-kimball-mq6ns45n", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilutm-david-v-kimball-mq6ns45n/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:32.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 0, "polish": 2, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 30, "name": "yeet.md", "handle": "David V. Kimball", "pitch": "Share Markdown in seconds", "emoji": "\ud83d\udce9", "link": "https://yeet.md/", "replay_project_id": "proj--has-yeet-md-david-v-kimball-mq6nug9g", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-yeet-md-david-v-kimball-mq6nug9g/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:22.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 2, "journey": 1, "polish": 1, "open": 2, "resolved": 0, "rejected": 0}}, {"showcase_id": 54, "name": "AI Cost Proxy", "handle": "Jose Luiz Rodrigues", "pitch": "Tablero de costo de IA por tarea.", "emoji": "\ud83e\udd16", "link": "https://ai-cost-proxy.netlify.app/", "replay_project_id": "proj--has-ai-cost-proxy-jose-luiz-rodrigues-mq6nt6qg", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-ai-cost-proxy-jose-luiz-rodrigues-mq6nt6qg/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:21.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 56, "name": "AlgoGenius", "handle": "Maya A", "pitch": "get feedback on your X posts before you post", "emoji": "\ud835\udd69", "link": "https://algogenius.netlify.app/", "replay_project_id": "proj--has-algogenius-maya-a-mq6nt24a", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-algogenius-maya-a-mq6nt24a/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:17.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 72, "name": "Animated Numbers", "handle": "AshAmplifies", "pitch": "Celebrate a milestone with an animation for any number you want!", "emoji": "\ud83d\udd22", "link": "https://animated-numbers.netlify.app/", "replay_project_id": "proj--has-animated-numbers-ashamplifies-mq6ns1u2", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-animated-numbers-ashamplifies-mq6ns1u2/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:30.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 15, "name": "BodyAbroad", "handle": "swatantra kumar sohni", "pitch": "Generates a personalized, shareable travel body card with six themed wellness tips.", "emoji": "\u2708\ufe0f", "link": "https://bodyabroad.netlify.app/", "replay_project_id": "proj--has-bodyabroad-swatantra-kumar-sohni-mq6nv81m", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-bodyabroad-swatantra-kumar-sohni-mq6nv81m/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:55.863Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 22, "name": "CineQuote", "handle": "Kush Sharma", "pitch": "Fun game to guess the correct movie names for the quotes.", "emoji": "\ud83d\ude0e", "link": "https://lambent-twilight-4c9f87.netlify.app/", "replay_project_id": "proj--has-cinequote-kush-sharma-mq6nuux9", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-cinequote-kush-sharma-mq6nuux9/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:38.858Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 62, "name": "Five Free Kings", "handle": "Jose Luiz Rodrigues", "pitch": "A RPG game.", "emoji": "\ud83d\udc51", "link": "https://ffk-game.netlify.app/", "replay_project_id": "proj--has-five-free-kings-jose-luiz-rodrigues-mq6nsqjb", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-five-free-kings-jose-luiz-rodrigues-mq6nsqjb/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:59.862Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 28, "name": "Legacy Builder", "handle": "Sri Monishan", "pitch": "See the biography of the person you are capable of becoming.", "emoji": "\ud83d\udc51", "link": "https://monishan-legacy-builder.lovable.app/", "replay_project_id": "proj--has-legacy-builder-sri-monishan-mq6nuk4g", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-legacy-builder-sri-monishan-mq6nuk4g/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:26.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 42, "name": "Personality Planet", "handle": "Sri Monishan", "pitch": "Discover the fictional planet hidden inside your personality.", "emoji": "\ud83e\ude90", "link": "https://personality-planet.lovable.app/", "replay_project_id": "proj--has-personality-planet-sri-monishan-mq6ntt45", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-personality-planet-sri-monishan-mq6ntt45/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:58.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 57, "name": "Photobomb", "handle": "Alhwyn Geonzon", "pitch": "Cards against humanity but using camera roll", "emoji": "\ud83d\udca3", "link": "https://photobomb.online/", "replay_project_id": "proj--has-photobomb-alhwyn-geonzon-mq6nt0kg", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-photobomb-alhwyn-geonzon-mq6nt0kg/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:15.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 18, "name": "PixelVerse", "handle": "Neal Frazier", "pitch": "Transform any sentence into pixel threejs mayhem", "emoji": "\ud83d\udc7e", "link": "https://pixelverse-day1.netlify.app/", "replay_project_id": "proj--has-pixelverse-neal-frazier-mq6nv2n4", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-pixelverse-neal-frazier-mq6nv2n4/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:48.861Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 74, "name": "Privacy Reveal", "handle": "Gerrit", "pitch": "Most websites track you silently. This privacy-awareness reveal shows you exactly how much passive tracking happens.", "emoji": "\ud83d\udd10", "link": "https://privacy-reveal.netlify.app/", "replay_project_id": "proj--has-privacy-reveal-gerrit-mq6nrwyi", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-privacy-reveal-gerrit-mq6nrwyi/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:26.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 69, "name": "Scan Me Zeng", "handle": "Zeng", "pitch": "A landing page for my QR code, designed for effortless networking.", "emoji": "\ud83e\udd1d", "link": "https://scanmezeng.netlify.app/", "replay_project_id": "proj--has-scan-me-zeng-zeng-mq6ns8s4", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-scan-me-zeng-zeng-mq6ns8s4/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:36.849Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 52, "name": "ShowMeYourSite", "handle": "Zeeshan Ali", "pitch": "Submit your SaaS. Get 24+ DR dofollow backlink.", "emoji": "\ud83d\ude80", "link": "https://showmeyour.site/", "replay_project_id": "proj--has-showmeyoursite-zeeshan-ali-mq6ntalq", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-showmeyoursite-zeeshan-ali-mq6ntalq/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:25.869Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 60, "name": "Side Project Graveyard", "handle": "Gerrit", "pitch": "A grand monument of code left to crumble because a newer framework arrived.", "emoji": "\ud83e\udea6", "link": "https://side-project-graveyard.netlify.app/", "replay_project_id": "proj--has-side-project-graveyard-gerrit-mq6nstn8", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-side-project-graveyard-gerrit-mq6nstn8/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:03.890Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 73, "name": "Signs By UFOS", "handle": "Neal Frazier", "pitch": "DO YOU BELIEVE IN DA SIGNZ??", "emoji": "\ud83d\udc7d", "link": "https://signs-by-ufos.netlify.app/", "replay_project_id": "proj--has-signs-by-ufos-neal-frazier-mq6nrzj8", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-signs-by-ufos-neal-frazier-mq6nrzj8/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:11:28.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 48, "name": "SkateNow", "handle": "Neal Frazier", "pitch": "EA kept procrastinating Skate we brought it to the actual streets", "emoji": "\ud83d\udef9", "link": "https://skatenow.nealfrazier.tech/", "replay_project_id": "proj--has-skatenow-neal-frazier-mq6ntib3", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-skatenow-neal-frazier-mq6ntib3/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:35.853Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 19, "name": "SubSweep", "handle": "Neal Frazier", "pitch": "Threejs world surrounded by your lanky subscriptions", "emoji": "\ud83d\udcb2", "link": "https://subsweep-day2.netlify.app/", "replay_project_id": "proj--has-subsweep-neal-frazier-mq6nv13l", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-subsweep-neal-frazier-mq6nv13l/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:46.862Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 44, "name": "Zwin", "handle": "abdellah ait bouohou", "pitch": "infinite color generator", "emoji": "\ud83c\udfa8", "link": "https://zwin.netlify.app/", "replay_project_id": "proj--has-zwin-abdellah-ait-bouohou-mq6ntq1e", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-zwin-abdellah-ait-bouohou-mq6ntq1e/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:45.872Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 16, "name": "glow.garden", "handle": "Maya A", "pitch": "A quiet corner of the internet for spreading positivity.", "emoji": "\ud83c\udf38", "link": "https://glowgarden.netlify.app/", "replay_project_id": "proj--has-glow-garden-maya-a-mq6nv5pw", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-glow-garden-maya-a-mq6nv5pw/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:52.849Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 40, "name": "lilPreview", "handle": "David V. Kimball", "pitch": "Social Media preview tool for profiles and posts.", "emoji": "\ud83d\udc41\ufe0f", "link": "https://lilpreview.netlify.app/", "replay_project_id": "proj--has-lilpreview-david-v-kimball-mq6ntxr4", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilpreview-david-v-kimball-mq6ntxr4/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:02.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 1, "journey": 0, "polish": 1, "open": 1, "resolved": 0, "rejected": 0}}, {"showcase_id": 47, "name": "HappyButton", "handle": "Maya A", "pitch": "a tiny app that delivers uplifting messages and instant confetti whenever you need a little joy.", "emoji": "\ud83c\udf86", "link": "https://happy-button.netlify.app/", "replay_project_id": "proj--has-happybutton-maya-a-mq6ntjux", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-happybutton-maya-a-mq6ntjux/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:37.863Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 0, "journey": 0, "polish": 0, "open": 0, "resolved": 0, "rejected": 0}}, {"showcase_id": 41, "name": "HotAppSummer", "handle": "KP", "pitch": "The official HotAppSummer project", "emoji": "\ud83c\udf89", "link": "https://hotappsummer.netlify.app/", "replay_project_id": "proj--has-hotappsummer-kp-mq6ntvfj", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-hotappsummer-kp-mq6ntvfj/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:13:00.000Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 0, "journey": 0, "polish": 0, "open": 0, "resolved": 0, "rejected": 0}}, {"showcase_id": 46, "name": "Shake or Melt", "handle": "Zeng", "pitch": "Hot Summer game where your phone screen literally melts in real-time until you shake it like crazy to save it!", "emoji": "\u2600\ufe0f", "link": "https://shake-or-melt.netlify.app/", "replay_project_id": "proj--has-shake-or-melt-zeng-mq6ntm63", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-shake-or-melt-zeng-mq6ntm63/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:40.857Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 0, "journey": 0, "polish": 0, "open": 0, "resolved": 0, "rejected": 0}}, {"showcase_id": 45, "name": "Side Quests", "handle": "AshAmplifies", "pitch": "Generate competitive scavenger hunts with your friends.", "emoji": "\ud83d\udd0e", "link": "https://side-quests-game.netlify.app/", "replay_project_id": "proj--has-side-quests-ashamplifies-mq6ntnt4", "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-side-quests-ashamplifies-mq6ntnt4/overview", "scan_status": "complete", "scan_started_at": "2026-06-09T13:12:42.983Z", "scan_completed_at": "2026-06-09T16:53:33.570099Z", "bug_counts": {"total": 0, "journey": 0, "polish": 0, "open": 0, "resolved": 0, "rejected": 0}}], "last_updated": "2026-06-09T16:53:33.570099Z", "total_apps": 61, "scanned_apps": 61};</script>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-logo">
+    <h1>🔥 Hot App Summer <span>× Replay QA</span></h1>
+  </div>
+  <div class="header-sub">
+    Automated bug scans for every app on the
+    <a href="https://hotappsummer.netlify.app/showcase" target="_blank">#HotAppSummer showcase</a>
+  </div>
+</div>
+
+<div class="stats-bar" id="statsBar">
+  <div class="stat">
+    <div class="stat-value" id="statTotal">—</div>
+    <div class="stat-label">Apps Tracked</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <div class="stat-value" id="statComplete">—</div>
+    <div class="stat-label">Scans Complete</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <div class="stat-value" id="statScanning">—</div>
+    <div class="stat-label">Scanning</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <div class="stat-value" id="statBugs">—</div>
+    <div class="stat-label">Total Bugs Found</div>
+  </div>
+  <div class="stat-divider"></div>
+  <div class="stat">
+    <div class="stat-value" id="statUpdated">—</div>
+    <div class="stat-label">Last Updated</div>
+  </div>
+</div>
+
+<div class="controls">
+  <div class="search-wrap">
+    <span class="search-icon">🔎</span>
+    <input
+      class="search-input"
+      id="searchInput"
+      type="text"
+      placeholder="Search by app name, creator, or description…"
+      autocomplete="off"
+    />
+  </div>
+  <span class="sort-label">SORT BY BUGS:</span>
+  <div class="sort-btns">
+    <button class="sort-btn active" id="sortMost"  onclick="setSort('most')">Most ↓</button>
+    <button class="sort-btn"        id="sortLeast" onclick="setSort('least')">Least ↑</button>
+    <button class="sort-btn"        id="sortNewest" onclick="setSort('newest')">Newest</button>
+  </div>
+</div>
+
+<div class="app-list" id="appList">
+  <div class="empty">
+    <div class="emoji">⏳</div>
+    <p>Loading leaderboard…</p>
+  </div>
+</div>
+
+<div class="footer">
+  Scans powered by <a href="https://loop-qa.replay.io" target="_blank">Replay QA</a>
+  · Submissions from <a href="https://hotappsummer.netlify.app/showcase" target="_blank">Hot App Summer</a>
+  · Updated daily
+</div>
+
+<script>
+let allApps    = [];
+let sortMode   = 'most';
+let searchTerm = '';
+
+// ── Load data ──────────────────────────────────────────────────────────────
+
+async function loadData() {
+  try {
+    // Use embedded data (works for local file:// opens) or fetch for hosted
+    let data;
+    if (window.LEADERBOARD_DATA) {
+      data = window.LEADERBOARD_DATA;
+    } else {
+      const res = await fetch('data.json?_=' + Date.now());
+      data = await res.json();
+    }
+    allApps = data.apps || [];
+    renderStats(data);
+    renderList();
+  } catch (e) {
+    document.getElementById('appList').innerHTML = `
+      <div class="empty">
+        <div class="emoji">😵</div>
+        <p>Couldn't load data — run scraper.py to generate the leaderboard data.</p>
+      </div>`;
+  }
+}
+
+// ── Stats ──────────────────────────────────────────────────────────────────
+
+function renderStats(data) {
+  const apps     = data.apps || [];
+  const complete = apps.filter(a => a.scan_status === 'complete').length;
+  const scanning = apps.filter(a => a.scan_status === 'scanning').length;
+  const totalBugs = apps.reduce((acc, a) => acc + ((a.bug_counts || {}).total || 0), 0);
+
+  document.getElementById('statTotal').textContent    = apps.length;
+  document.getElementById('statComplete').textContent = complete;
+  document.getElementById('statScanning').textContent = scanning;
+  document.getElementById('statBugs').textContent     = totalBugs;
+
+  if (data.last_updated) {
+    const d = new Date(data.last_updated);
+    document.getElementById('statUpdated').textContent = d.toLocaleDateString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit', timeZoneName:'short'});
+  }
+}
+
+// ── Sort & filter ──────────────────────────────────────────────────────────
+
+function setSort(mode) {
+  sortMode = mode;
+  document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+  const ids = {most:'sortMost', least:'sortLeast', newest:'sortNewest'};
+  document.getElementById(ids[mode])?.classList.add('active');
+  renderList();
+}
+
+function filteredSorted() {
+  let apps = allApps.filter(a => {
+    if (!searchTerm) return true;
+    const q = searchTerm.toLowerCase();
+    return (
+      (a.name   || '').toLowerCase().includes(q) ||
+      (a.handle || '').toLowerCase().includes(q) ||
+      (a.pitch  || '').toLowerCase().includes(q)
+    );
+  });
+
+  apps.sort((a, b) => {
+    const ba = (a.bug_counts || {}).total || 0;
+    const bb = (b.bug_counts || {}).total || 0;
+    if (sortMode === 'most')   return bb - ba;
+    if (sortMode === 'least') {
+      // complete apps with 0 bugs at top, then scanning/pending at bottom
+      const statusOrder = s => s === 'complete' ? 0 : s === 'scanning' ? 1 : 2;
+      const so = statusOrder(a.scan_status) - statusOrder(b.scan_status);
+      if (so !== 0) return so;
+      return ba - bb;
+    }
+    if (sortMode === 'newest') {
+      return new Date(b.submitted_at || 0) - new Date(a.submitted_at || 0);
+    }
+    return 0;
+  });
+
+  return apps;
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+
+function statusPill(status) {
+  const labels = { scanning: '⟳ Scanning', complete: '✓ Complete', error: '✗ Error', pending: '… Pending' };
+  return `<span class="status-pill status-${status}">${labels[status] || status}</span>`;
+}
+
+function bugBadge(app) {
+  if (app.scan_status !== 'complete' || !app.bug_counts) {
+    return `<div class="bug-badge zero"><div class="bug-count">—</div><div class="bug-label">Bugs</div></div>`;
+  }
+  const n = app.bug_counts.total || 0;
+  return `<div class="bug-badge ${n === 0 ? 'zero' : ''}">
+    <div class="bug-count">${n}</div>
+    <div class="bug-label">Bug${n !== 1 ? 's' : ''}</div>
+  </div>`;
+}
+
+function bugBreakdown(app) {
+  if (app.scan_status !== 'complete' || !app.bug_counts) return '';
+  const c = app.bug_counts;
+  return `<div class="bug-breakdown">
+    <span><span>${c.journeyBugs || 0}</span> journey</span>
+    <span><span>${c.polishBugs  || 0}</span> polish</span>
+    <span><span>${c.openCount   || 0}</span> open</span>
+  </div>`;
+}
+
+function renderList() {
+  const apps = filteredSorted();
+  const el   = document.getElementById('appList');
+
+  if (!apps.length) {
+    el.innerHTML = `<div class="empty"><div class="emoji">🔍</div><p>No apps match "${searchTerm}"</p></div>`;
+    return;
+  }
+
+  el.innerHTML = apps.map(app => {
+    const hasLink  = !!app.replay_project_url;
+    const appLink  = app.link || '#';
+    const primitives = (() => {
+      try { return JSON.parse(app.primitives || '[]').join(', '); }
+      catch { return app.primitives || ''; }
+    })();
+    const date = app.submitted_at
+      ? new Date(app.submitted_at).toLocaleDateString('en-US', {month:'short', day:'numeric'})
+      : '';
+
+    return `
+<div class="app-card ${hasLink ? 'has-link' : ''}" ${hasLink ? `onclick="window.open('${app.replay_project_url}','_blank')"` : ''}>
+  <div class="app-emoji">${app.emoji || '🚀'}</div>
+  <div class="app-body">
+    <div class="app-name">
+      <a href="${appLink}" target="_blank" onclick="event.stopPropagation()">${esc(app.name)}</a>
+    </div>
+    <div class="app-meta">
+      <span class="by">@${esc(app.handle)}</span>
+      ${date ? `<span class="dot">·</span><span>${date}</span>` : ''}
+      ${primitives ? `<span class="dot">·</span><span>${esc(primitives)}</span>` : ''}
+    </div>
+    <div class="app-pitch">${esc(app.pitch || '')}</div>
+  </div>
+  <div class="app-right">
+    ${bugBadge(app)}
+    ${statusPill(app.scan_status || 'pending')}
+    ${hasLink ? `<a class="replay-link" href="${app.replay_project_url}" target="_blank" onclick="event.stopPropagation()">View in Replay →</a>` : ''}
+  </div>
+  ${bugBreakdown(app)}
+</div>`;
+  }).join('\n');
+}
+
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ── Search ─────────────────────────────────────────────────────────────────
+
+document.getElementById('searchInput').addEventListener('input', e => {
+  searchTerm = e.target.value.trim();
+  renderList();
+});
+
+// ── Boot ───────────────────────────────────────────────────────────────────
+loadData();
+// Auto-refresh every 2 minutes if any scans are still running
+setInterval(() => {
+  if (allApps.some(a => a.scan_status === 'scanning')) loadData();
+}, 120_000);
+</script>
+</body>
+</html>
