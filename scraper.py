@@ -183,7 +183,14 @@ def poll_scanning_apps(state):
         counts = fetch_bug_counts(pid)
 
         if counts:
-            app["bug_counts"] = counts
+            app["bug_counts"] = {
+                "total":    counts.get("total", 0),
+                "journey":  counts.get("journeyBugs", 0),
+                "polish":   counts.get("polishBugs", 0),
+                "open":     counts.get("openCount", 0),
+                "resolved": counts.get("resolvedCount", 0),
+                "rejected": counts.get("rejectedCount", 0),
+            }
 
         if done and counts is not None:
             app["scan_status"]      = "complete"

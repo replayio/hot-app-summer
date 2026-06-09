@@ -538,9 +538,9 @@ function bugBreakdown(app) {
   if (app.scan_status !== 'complete' || !app.bug_counts) return '';
   const c = app.bug_counts;
   return `<div class="bug-breakdown">
-    <span><span>${c.journeyBugs || 0}</span> journey</span>
-    <span><span>${c.polishBugs  || 0}</span> polish</span>
-    <span><span>${c.openCount   || 0}</span> open</span>
+    <span><span>${c.journey || 0}</span> journey</span>
+    <span><span>${c.polish  || 0}</span> polish</span>
+    <span><span>${c.open    || 0}</span> open</span>
   </div>`;
 }
 

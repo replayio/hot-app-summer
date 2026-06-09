@@ -17,3 +17,6 @@ venv/
 
 # Node (if needed later)
 node_modules/
+
+# Local Netlify folder
+.netlify
