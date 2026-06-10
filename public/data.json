@@ -43,6 +43,48 @@
       }
     },
     {
+      "showcase_id": 80,
+      "name": "Calchive",
+      "handle": "sudais falak",
+      "pitch": "258+ free online calculators for finance, health, math, science, YouTube earnings and freelance rates — no signup required",
+      "emoji": "🧮",
+      "link": "https://calchive.site",
+      "replay_project_id": "proj-calchive-site-mq8fsiki",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-calchive-site-mq8fsiki/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 5,
+        "journey": 2,
+        "polish": 3,
+        "open": 5,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 85,
+      "name": "Java guide",
+      "handle": "Adan Suhail",
+      "pitch": "This website, \"Java guide\" helps beginners who want to learn Java before taking the exam.",
+      "emoji": "☕",
+      "link": "https://java-guide.netlify.app/",
+      "replay_project_id": "proj-java-guide-netlify-app-mq8fsapa",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-java-guide-netlify-app-mq8fsapa/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 5,
+        "journey": 1,
+        "polish": 4,
+        "open": 5,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 14,
       "name": "Meet My AI Agent",
       "handle": "Zeng",
@@ -59,6 +101,27 @@
         "journey": 1,
         "polish": 4,
         "open": 5,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 86,
+      "name": "BizOS",
+      "handle": "Veer Chaudhary",
+      "pitch": "AI-powered business operating system for Indian entrepreneurs — manage, automate, and grow your business in one app.",
+      "emoji": "🕴️",
+      "link": "https://biz-os-ai-workshop.netlify.app",
+      "replay_project_id": "proj-biz-os-ai-workshop-netlify-app-mq8fs8tn",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-biz-os-ai-workshop-netlify-app-mq8fs8tn/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 3,
+        "journey": 1,
+        "polish": 2,
+        "open": 3,
         "resolved": 0,
         "rejected": 0
       }
@@ -289,6 +352,27 @@
         "total": 2,
         "journey": 0,
         "polish": 2,
+        "open": 2,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 81,
+      "name": "Metadata Detective",
+      "handle": "Gerrit",
+      "pitch": "Drop in any photo to expose the silent, hidden digital trail it leaks behind your back.",
+      "emoji": "🕵️",
+      "link": "https://data-detective-was-taken.netlify.app/",
+      "replay_project_id": "proj-data-detective-was-taken-netlify-app-mq8fsgjr",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-data-detective-was-taken-netlify-app-mq8fsgjr/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 2,
+        "journey": 1,
+        "polish": 1,
         "open": 2,
         "resolved": 0,
         "rejected": 0
@@ -589,6 +673,27 @@
       }
     },
     {
+      "showcase_id": 89,
+      "name": "Gradient Universe",
+      "handle": "Joyston Monteiro",
+      "pitch": "Discover, generate and export stunning gradients for your next design project.",
+      "emoji": "🌈",
+      "link": "https://gradient-universe.netlify.app/",
+      "replay_project_id": "proj-gradient-universe-netlify-app-mq8fro2u",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-gradient-universe-netlify-app-mq8fro2u/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 61,
       "name": "Little Lantern",
       "handle": "Zeng",
@@ -810,6 +915,27 @@
       "scan_status": "complete",
       "scan_started_at": "2026-06-09T13:12:33.871Z",
       "scan_completed_at": "2026-06-09T16:53:33.570099Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 88,
+      "name": "SOULSQUOOSH",
+      "handle": "Wil Sevilla",
+      "pitch": "The easiest way to generate souls for OpenClaw agents.",
+      "emoji": "👤",
+      "link": "https://soulsquoosh.com/",
+      "replay_project_id": "proj-soulsquoosh-com-mq8fs6lf",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-soulsquoosh-com-mq8fs6lf/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
       "bug_counts": {
         "total": 1,
         "journey": 0,
@@ -1072,6 +1198,27 @@
       }
     },
     {
+      "showcase_id": 76,
+      "name": "lilSnippet",
+      "handle": "David V. Kimball",
+      "pitch": "Google Search Result Preview",
+      "emoji": "🔎",
+      "link": "https://lilsnippet.netlify.app/",
+      "replay_project_id": "proj-lilsnippet-netlify-app-mq8fsqej",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-lilsnippet-netlify-app-mq8fsqej/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 71,
       "name": "lilUTM",
       "handle": "David V. Kimball",
@@ -1114,6 +1261,27 @@
       }
     },
     {
+      "showcase_id": 77,
+      "name": "zune.cc",
+      "handle": "David V. Kimball",
+      "pitch": "Classic Zune social card creator.",
+      "emoji": "🪪",
+      "link": "https://zune.cc",
+      "replay_project_id": "proj-zune-cc-mq8fsojn",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-zune-cc-mq8fsojn/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 29,
       "name": "Creator Engine",
       "handle": "abdellah ait bouohou",
@@ -1125,6 +1293,27 @@
       "scan_status": "complete",
       "scan_started_at": "2026-06-09T13:13:24.000Z",
       "scan_completed_at": "2026-06-09T16:53:33.570099Z",
+      "bug_counts": {
+        "total": 0,
+        "journey": 0,
+        "polish": 0,
+        "open": 0,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 75,
+      "name": "Glint",
+      "handle": "Maya A",
+      "pitch": "app logo creator",
+      "emoji": "🎆",
+      "link": "https://sensational-liger-332e64.netlify.app/",
+      "replay_project_id": "proj-sensational-liger-332e64-netlify-app-mq8fss8n",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-sensational-liger-332e64-netlify-app-mq8fss8n/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
       "bug_counts": {
         "total": 0,
         "journey": 0,
@@ -1167,6 +1356,27 @@
       "scan_status": "complete",
       "scan_started_at": "2026-06-09T13:13:00.000Z",
       "scan_completed_at": "2026-06-09T16:53:33.570099Z",
+      "bug_counts": {
+        "total": 0,
+        "journey": 0,
+        "polish": 0,
+        "open": 0,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 78,
+      "name": "Motionary",
+      "handle": "AshAmplifies",
+      "pitch": "The motion directory that helps you describe and articulate the animation you want to your agent with visual examples.",
+      "emoji": "📹",
+      "link": "https://motion-dictionary.netlify.app",
+      "replay_project_id": "proj-motion-dictionary-netlify-app-mq8fsmol",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-motion-dictionary-netlify-app-mq8fsmol/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
       "bug_counts": {
         "total": 0,
         "journey": 0,
@@ -1280,9 +1490,72 @@
         "resolved": 0,
         "rejected": 0
       }
+    },
+    {
+      "showcase_id": 82,
+      "name": "The Lindy Atlas",
+      "handle": "AshAmplifies",
+      "pitch": "When everything feels like it is changing fast - what are the businesses that have stood the test of time?",
+      "emoji": "🏦",
+      "link": "https://lindy-atlas.netlify.app/",
+      "replay_project_id": "proj-lindy-atlas-netlify-app-mq8fseml",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-lindy-atlas-netlify-app-mq8fseml/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 0,
+        "journey": 0,
+        "polish": 0,
+        "open": 0,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 79,
+      "name": "Wedding Website",
+      "handle": "Bravee",
+      "pitch": "A simple Wedding Website Page Created Using AI Coding Agent",
+      "emoji": "❤️💍",
+      "link": "https://wedding-website-ovie.netlify.app/",
+      "replay_project_id": "proj-wedding-website-ovie-netlify-app-mq8fskqq",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-wedding-website-ovie-netlify-app-mq8fskqq/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 0,
+        "journey": 0,
+        "polish": 0,
+        "open": 0,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 84,
+      "name": "star",
+      "handle": "Sasa queen",
+      "pitch": "Just make site",
+      "emoji": "🚀",
+      "link": "https://wrongly.netlify.app",
+      "replay_project_id": "proj-wrongly-netlify-app-mq8fscov",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj-wrongly-netlify-app-mq8fscov/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-10T23:34:05.443360Z",
+      "scan_completed_at": "2026-06-10T23:34:05.443360Z",
+      "bug_counts": {
+        "total": 0,
+        "journey": 0,
+        "polish": 0,
+        "open": 0,
+        "resolved": 0,
+        "rejected": 0
+      }
     }
   ],
-  "last_updated": "2026-06-10T14:26:51.506387Z",
-  "total_apps": 61,
-  "scanned_apps": 61
+  "last_updated": "2026-06-10T23:34:05.443360Z",
+  "total_apps": 74,
+  "scanned_apps": 74
 }
