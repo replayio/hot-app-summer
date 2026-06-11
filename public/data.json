@@ -148,6 +148,27 @@
       }
     },
     {
+      "showcase_id": 103,
+      "name": "Favoji",
+      "handle": "Mark Bowley",
+      "pitch": "Make a quick favicon from any emoji",
+      "emoji": "🤪",
+      "link": "https://favoji.netlify.app/",
+      "replay_project_id": "proj--has-favoji-mark-bowley-mq9fgxtl",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-favoji-mark-bowley-mq9fgxtl/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 3,
+        "journey": 0,
+        "polish": 3,
+        "open": 3,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 36,
       "name": "Inner Boardroom",
       "handle": "Sri Monishan",
@@ -163,6 +184,27 @@
         "total": 3,
         "journey": 1,
         "polish": 2,
+        "open": 3,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 99,
+      "name": "Modern Construction Company Profile",
+      "handle": "Bravee",
+      "pitch": "Created a company profile for construction focus alike with blue and white as the primary color",
+      "emoji": "🏢",
+      "link": "https://app.netlify.com/projects/astra-build/overview/",
+      "replay_project_id": "proj--has-modern-construction-company-profile-bravee-mq9fgrpe",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-modern-construction-company-profile-bravee-mq9fgrpe/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 3,
+        "journey": 0,
+        "polish": 3,
         "open": 3,
         "resolved": 0,
         "rejected": 0
@@ -226,6 +268,27 @@
         "total": 3,
         "journey": 1,
         "polish": 2,
+        "open": 3,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 98,
+      "name": "Your Life in Weeks",
+      "handle": "Gerrit",
+      "pitch": "Every box below is one week. One row is a year. The filled ones are spent: the blank ones are not promised, only available.",
+      "emoji": "🗓️",
+      "link": "https://yourlife-inweeks.netlify.app/",
+      "replay_project_id": "proj--has-your-life-in-weeks-gerrit-mq9fgq9a",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-your-life-in-weeks-gerrit-mq9fgq9a/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 3,
+        "journey": 0,
+        "polish": 3,
         "open": 3,
         "resolved": 0,
         "rejected": 0
@@ -610,6 +673,27 @@
       }
     },
     {
+      "showcase_id": 96,
+      "name": "tinydecision",
+      "handle": "Maya A",
+      "pitch": "A playful two-choice decision maker that helps reveal what you actually want.",
+      "emoji": "❓",
+      "link": "https://tinydecision.netlify.app/",
+      "replay_project_id": "proj--has-tinydecision-maya-a-mq9fgmx3",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-tinydecision-maya-a-mq9fgmx3/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 2,
+        "journey": 0,
+        "polish": 2,
+        "open": 2,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 91,
       "name": "A little good",
       "handle": "Suhana Panwar",
@@ -946,6 +1030,27 @@
       }
     },
     {
+      "showcase_id": 102,
+      "name": "Momentum Mori",
+      "handle": "Neal Frazier",
+      "pitch": "Snowballs form from snowflakes",
+      "emoji": "🌨️",
+      "link": "https://momentum-mori.netlify.app/",
+      "replay_project_id": "proj--has-momentum-mori-neal-frazier-mq9fgw8f",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-momentum-mori-neal-frazier-mq9fgw8f/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 68,
       "name": "Out of Office Generator",
       "handle": "Gerrit",
@@ -1261,6 +1366,27 @@
       }
     },
     {
+      "showcase_id": 100,
+      "name": "Weather Forecast",
+      "handle": "Adan Suhail",
+      "pitch": "See the weather forecast according to your location, plus the weather of other cities.",
+      "emoji": "🌤️",
+      "link": "https://adan-weather-forecast.netlify.app/",
+      "replay_project_id": "proj--has-weather-forecast-adan-suhail-mq9fgt5n",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-weather-forecast-adan-suhail-mq9fgt5n/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 44,
       "name": "Zwin",
       "handle": "abdellah ait bouohou",
@@ -1450,6 +1576,27 @@
       }
     },
     {
+      "showcase_id": 97,
+      "name": "tinystart",
+      "handle": "Maya A",
+      "pitch": "Tiny Start turns an intimidating task into one gentle first step and a no-pressure five-minute timer.",
+      "emoji": "⭐",
+      "link": "https://tinystart.netlify.app/",
+      "replay_project_id": "proj--has-tinystart-maya-a-mq9fgoqw",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-tinystart-maya-a-mq9fgoqw/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 30,
       "name": "yeet.md",
       "handle": "David V. Kimball",
@@ -1597,6 +1744,27 @@
       }
     },
     {
+      "showcase_id": 101,
+      "name": "Magic Particles",
+      "handle": "Adan Suhail",
+      "pitch": "Want to see moving particles create the word, emojis, and anything else you write!",
+      "emoji": "🔮",
+      "link": "https://magic-particles-animation.netlify.app/",
+      "replay_project_id": "proj--has-magic-particles-adan-suhail-mq9fgume",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-magic-particles-adan-suhail-mq9fgume/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-11T11:45:15.865223Z",
+      "scan_completed_at": "2026-06-11T14:58:11.900568Z",
+      "bug_counts": {
+        "total": 0,
+        "journey": 0,
+        "polish": 0,
+        "open": 0,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 25,
       "name": "OpenCircuit",
       "handle": "Joyston Monteiro",
@@ -1721,121 +1889,9 @@
         "resolved": 0,
         "rejected": 0
       }
-    },
-    {
-      "showcase_id": 103,
-      "name": "Favoji",
-      "handle": "Mark Bowley",
-      "pitch": "Make a quick favicon from any emoji",
-      "emoji": "🤪",
-      "link": "https://favoji.netlify.app/",
-      "replay_project_id": "proj--has-favoji-mark-bowley-mq9fgxtl",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-favoji-mark-bowley-mq9fgxtl/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 101,
-      "name": "Magic Particles",
-      "handle": "Adan Suhail",
-      "pitch": "Want to see moving particles create the word, emojis, and anything else you write!",
-      "emoji": "🔮",
-      "link": "https://magic-particles-animation.netlify.app/",
-      "replay_project_id": "proj--has-magic-particles-adan-suhail-mq9fgume",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-magic-particles-adan-suhail-mq9fgume/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 99,
-      "name": "Modern Construction Company Profile",
-      "handle": "Bravee",
-      "pitch": "Created a company profile for construction focus alike with blue and white as the primary color",
-      "emoji": "🏢",
-      "link": "https://app.netlify.com/projects/astra-build/overview/",
-      "replay_project_id": "proj--has-modern-construction-company-profile-bravee-mq9fgrpe",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-modern-construction-company-profile-bravee-mq9fgrpe/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 102,
-      "name": "Momentum Mori",
-      "handle": "Neal Frazier",
-      "pitch": "Snowballs form from snowflakes",
-      "emoji": "🌨️",
-      "link": "https://momentum-mori.netlify.app/",
-      "replay_project_id": "proj--has-momentum-mori-neal-frazier-mq9fgw8f",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-momentum-mori-neal-frazier-mq9fgw8f/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 100,
-      "name": "Weather Forecast",
-      "handle": "Adan Suhail",
-      "pitch": "See the weather forecast according to your location, plus the weather of other cities.",
-      "emoji": "🌤️",
-      "link": "https://adan-weather-forecast.netlify.app/",
-      "replay_project_id": "proj--has-weather-forecast-adan-suhail-mq9fgt5n",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-weather-forecast-adan-suhail-mq9fgt5n/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 98,
-      "name": "Your Life in Weeks",
-      "handle": "Gerrit",
-      "pitch": "Every box below is one week. One row is a year. The filled ones are spent: the blank ones are not promised, only available.",
-      "emoji": "🗓️",
-      "link": "https://yourlife-inweeks.netlify.app/",
-      "replay_project_id": "proj--has-your-life-in-weeks-gerrit-mq9fgq9a",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-your-life-in-weeks-gerrit-mq9fgq9a/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 96,
-      "name": "tinydecision",
-      "handle": "Maya A",
-      "pitch": "A playful two-choice decision maker that helps reveal what you actually want.",
-      "emoji": "❓",
-      "link": "https://tinydecision.netlify.app/",
-      "replay_project_id": "proj--has-tinydecision-maya-a-mq9fgmx3",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-tinydecision-maya-a-mq9fgmx3/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
-    },
-    {
-      "showcase_id": 97,
-      "name": "tinystart",
-      "handle": "Maya A",
-      "pitch": "Tiny Start turns an intimidating task into one gentle first step and a no-pressure five-minute timer.",
-      "emoji": "⭐",
-      "link": "https://tinystart.netlify.app/",
-      "replay_project_id": "proj--has-tinystart-maya-a-mq9fgoqw",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-tinystart-maya-a-mq9fgoqw/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-11T11:45:15.865223Z",
-      "scan_completed_at": null,
-      "bug_counts": {}
     }
   ],
-  "last_updated": "2026-06-11T11:45:15.865223Z",
+  "last_updated": "2026-06-11T14:58:11.900568Z",
   "total_apps": 90,
-  "scanned_apps": 82
+  "scanned_apps": 90
 }
