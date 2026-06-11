@@ -82,9 +82,10 @@ def fetch_showcase():
 def create_replay_project(app):
     name = f"[HAS] {app['name']} — {app['handle']}"
     payload = {
-        "name":       name,
-        "target_url": app["link"].rstrip("/") + "/",
-        "is_public":  True,
+        "name":         name,
+        "target_url":   app["link"].rstrip("/") + "/",
+        "is_public":    True,
+        "instructions": "Explore this web app and find any bugs, usability issues, or broken functionality.",
     }
     print(f"  Creating Replay QA project for: {app['name']}")
     result = post(f"{REPLAY_BASE}/api/projects", payload)
