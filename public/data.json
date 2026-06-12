@@ -1,6 +1,27 @@
 {
   "apps": [
     {
+      "showcase_id": 104,
+      "name": "lilRedirect",
+      "handle": "David V. Kimball",
+      "pitch": "Redirect Map Generator for Netlify, Vercel, Cloudflare, and others.",
+      "emoji": "🚀",
+      "link": "https://lilredirect.netlify.app/",
+      "replay_project_id": "proj--has-lilredirect-david-v-kimball-mqb0iy0h",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilredirect-david-v-kimball-mqb0iy0h/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-12T14:22:00.140125Z",
+      "scan_completed_at": "2026-06-12T17:14:39.600704Z",
+      "bug_counts": {
+        "total": 7,
+        "journey": 1,
+        "polish": 6,
+        "open": 7,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 17,
       "name": "Office Pool Generator",
       "handle": "AshAmplifies",
@@ -135,6 +156,27 @@
       }
     },
     {
+      "showcase_id": 105,
+      "name": "lilHeaders",
+      "handle": "David V. Kimball",
+      "pitch": "Security Headers Checker",
+      "emoji": "🚀",
+      "link": "https://lilheaders.netlify.app/",
+      "replay_project_id": "proj--has-lilheaders-david-v-kimball-mqb0izyh",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilheaders-david-v-kimball-mqb0izyh/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-12T14:22:00.140125Z",
+      "scan_completed_at": "2026-06-12T17:14:39.600704Z",
+      "bug_counts": {
+        "total": 5,
+        "journey": 0,
+        "polish": 5,
+        "open": 5,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 95,
       "name": "tinycalc",
       "handle": "Maya A",
@@ -217,6 +259,27 @@
         "total": 3,
         "journey": 0,
         "polish": 3,
+        "open": 3,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 108,
+      "name": "Little Leaners",
+      "handle": "Dakota Lake",
+      "pitch": "Help homeschool parents teach the kids",
+      "emoji": "🚀",
+      "link": "https://app.netlify.com/projects/little-learners-homeschool/deploys",
+      "replay_project_id": "proj--has-little-leaners-dakota-lake-mqb0j4yc",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-little-leaners-dakota-lake-mqb0j4yc/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-12T14:22:00.140125Z",
+      "scan_completed_at": "2026-06-12T17:14:39.600704Z",
+      "bug_counts": {
+        "total": 3,
+        "journey": 1,
+        "polish": 2,
         "open": 3,
         "resolved": 0,
         "rejected": 0
@@ -403,6 +466,27 @@
       }
     },
     {
+      "showcase_id": 106,
+      "name": "Palette From Anything",
+      "handle": "Joyston Monteiro",
+      "pitch": "Turn any image into a complete design system with palettes, gradients and font recommendations.",
+      "emoji": "🚀",
+      "link": "https://palettefromanything.netlify.app/",
+      "replay_project_id": "proj--has-palette-from-anything-joyston-monteiro-mqb0j1kk",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-palette-from-anything-joyston-monteiro-mqb0j1kk/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-12T14:22:00.140125Z",
+      "scan_completed_at": "2026-06-12T17:14:39.600704Z",
+      "bug_counts": {
+        "total": 2,
+        "journey": 0,
+        "polish": 2,
+        "open": 2,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
       "showcase_id": 74,
       "name": "Privacy Reveal",
       "handle": "Gerrit",
@@ -504,6 +588,27 @@
       "scan_status": "complete",
       "scan_started_at": "2026-06-09T13:13:55.863Z",
       "scan_completed_at": "2026-06-09T16:53:33.570099Z",
+      "bug_counts": {
+        "total": 1,
+        "journey": 0,
+        "polish": 1,
+        "open": 1,
+        "resolved": 0,
+        "rejected": 0
+      }
+    },
+    {
+      "showcase_id": 107,
+      "name": "Conjugueur",
+      "handle": "Hassan Khabibullaev",
+      "pitch": "French verb conjugation trainer",
+      "emoji": "🚀",
+      "link": "https://conjugueur.khabibullaev.com/",
+      "replay_project_id": "proj--has-conjugueur-hassan-khabibullaev-mqb0j343",
+      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-conjugueur-hassan-khabibullaev-mqb0j343/overview",
+      "scan_status": "complete",
+      "scan_started_at": "2026-06-12T14:22:00.140125Z",
+      "scan_completed_at": "2026-06-12T17:14:39.600704Z",
       "bug_counts": {
         "total": 1,
         "journey": 0,
@@ -2011,114 +2116,9 @@
         "resolved": 0,
         "rejected": 0
       }
-    },
-    {
-      "showcase_id": 107,
-      "name": "Conjugueur",
-      "handle": "Hassan Khabibullaev",
-      "pitch": "French verb conjugation trainer",
-      "emoji": "🚀",
-      "link": "https://conjugueur.khabibullaev.com/",
-      "replay_project_id": "proj--has-conjugueur-hassan-khabibullaev-mqb0j343",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-conjugueur-hassan-khabibullaev-mqb0j343/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-12T14:22:00.140125Z",
-      "scan_completed_at": null,
-      "bug_counts": {
-        "total": 0,
-        "journey": 0,
-        "polish": 0,
-        "open": 0,
-        "resolved": 0,
-        "rejected": 0
-      }
-    },
-    {
-      "showcase_id": 108,
-      "name": "Little Leaners",
-      "handle": "Dakota Lake",
-      "pitch": "Help homeschool parents teach the kids",
-      "emoji": "🚀",
-      "link": "https://app.netlify.com/projects/little-learners-homeschool/deploys",
-      "replay_project_id": "proj--has-little-leaners-dakota-lake-mqb0j4yc",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-little-leaners-dakota-lake-mqb0j4yc/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-12T14:22:00.140125Z",
-      "scan_completed_at": null,
-      "bug_counts": {
-        "total": 0,
-        "journey": 0,
-        "polish": 0,
-        "open": 0,
-        "resolved": 0,
-        "rejected": 0
-      }
-    },
-    {
-      "showcase_id": 106,
-      "name": "Palette From Anything",
-      "handle": "Joyston Monteiro",
-      "pitch": "Turn any image into a complete design system with palettes, gradients and font recommendations.",
-      "emoji": "🚀",
-      "link": "https://palettefromanything.netlify.app/",
-      "replay_project_id": "proj--has-palette-from-anything-joyston-monteiro-mqb0j1kk",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-palette-from-anything-joyston-monteiro-mqb0j1kk/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-12T14:22:00.140125Z",
-      "scan_completed_at": null,
-      "bug_counts": {
-        "total": 0,
-        "journey": 0,
-        "polish": 0,
-        "open": 0,
-        "resolved": 0,
-        "rejected": 0
-      }
-    },
-    {
-      "showcase_id": 105,
-      "name": "lilHeaders",
-      "handle": "David V. Kimball",
-      "pitch": "Security Headers Checker",
-      "emoji": "🚀",
-      "link": "https://lilheaders.netlify.app/",
-      "replay_project_id": "proj--has-lilheaders-david-v-kimball-mqb0izyh",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilheaders-david-v-kimball-mqb0izyh/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-12T14:22:00.140125Z",
-      "scan_completed_at": null,
-      "bug_counts": {
-        "total": 0,
-        "journey": 0,
-        "polish": 0,
-        "open": 0,
-        "resolved": 0,
-        "rejected": 0
-      }
-    },
-    {
-      "showcase_id": 104,
-      "name": "lilRedirect",
-      "handle": "David V. Kimball",
-      "pitch": "Redirect Map Generator for Netlify, Vercel, Cloudflare, and others.",
-      "emoji": "🚀",
-      "link": "https://lilredirect.netlify.app/",
-      "replay_project_id": "proj--has-lilredirect-david-v-kimball-mqb0iy0h",
-      "replay_project_url": "https://loop-qa.replay.io/projects/proj--has-lilredirect-david-v-kimball-mqb0iy0h/overview",
-      "scan_status": "scanning",
-      "scan_started_at": "2026-06-12T14:22:00.140125Z",
-      "scan_completed_at": null,
-      "bug_counts": {
-        "total": 0,
-        "journey": 0,
-        "polish": 0,
-        "open": 0,
-        "resolved": 0,
-        "rejected": 0
-      }
     }
   ],
   "total_apps": 95,
-  "last_updated": "2026-06-12T14:22:00.140125Z",
+  "last_updated": "2026-06-12T17:14:39.600704Z",
   "showcase_url": "https://hotappsummer.netlify.app/showcase"
 }
